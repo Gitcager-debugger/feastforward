@@ -26,6 +26,7 @@
   <style>:root{--background: #E7F3F6; --background-900: #AAE3F1; --background-800: #7CD6EB; --background-700: #00C1E1; --background-600: #00A3C5; --background-dark: #00161D; --background-dark-900: #002430; --background-dark-800: #003B4C; --background-dark-700: #005067; --background-dark-600: #006783; --dominant-color: #1282A2; --dominant-dark-color: #033B58; --dominant-darken-color: #005573; --dominant-light-color: #CFEDEF; --dominant-lighten-color: #57B2D3; --primary-color: #034078; --primary-dark-color: #183458; --primary-darken-color: #001B4C; --primary-light-color: #CDE9F2; --primary-lighten-color: #456AA7; --secondary-color: #313750; --secondary-dark-color: #272F57; --secondary-darken-color: #0A1128; --secondary-light-color: #E0E8FF; --secondary-lighten-color: #5B617C; --success-color: #20AC6B; --success-dark-color: #1E421F; --success-darken-color: #007C3F; --success-light-color: #D2EADB; --success-lighten-color: #60DF9A; --danger-color: #AE1E2C; --danger-dark-color: #5B2A24; --danger-darken-color: #770003; --danger-light-color: #E0C4C2; --danger-lighten-color: #E65555; --warning-color: #CC9900; --warning-dark-color: #50280A; --warning-darken-color: #966B00; --warning-light-color: #E9E3CB; --warning-lighten-color: #FFC945; --info-color: #0AA3C2; --info-dark-color: #023E59; --info-darken-color: #007492; --info-light-color: #CFEDED; --info-lighten-color: #5ED4F5; --background-text: #000000; --background-900-text: #000000; --background-800-text: #000000; --background-700-text: #000000; --background-600-text: #FFFFFF; --background-dark-text: #FFFFFF; --background-dark-900-text: #FFFFFF; --background-dark-800-text: #FFFFFF; --background-dark-700-text: #FFFFFF; --background-dark-600-text: #FFFFFF; --dominant-text: #FFFFFF; --dominant-dark-text: #FFFFFF; --dominant-darken-text: #FFFFFF; --dominant-light-text: #000000; --dominant-lighten-text: #000000; --primary-text: #FFFFFF; --primary-dark-text: #FFFFFF; --primary-darken-text: #FFFFFF; --primary-light-text: #000000; --primary-lighten-text: #FFFFFF; --secondary-text: #FFFFFF; --secondary-dark-text: #FFFFFF; --secondary-darken-text: #FFFFFF; --secondary-light-text: #000000; --secondary-lighten-text: #FFFFFF; --success-text: #FFFFFF; --success-dark-text: #FFFFFF; --success-darken-text: #FFFFFF; --success-light-text: #000000; --success-lighten-text: #000000; --danger-text: #FFFFFF; --danger-dark-text: #FFFFFF; --danger-darken-text: #FFFFFF; --danger-light-text: #000000; --danger-lighten-text: #FFFFFF; --warning-text: #000000; --warning-dark-text: #FFFFFF; --warning-darken-text: #FFFFFF; --warning-light-text: #000000; --warning-lighten-text: #000000; --info-text: #FFFFFF; --info-dark-text: #FFFFFF; --info-darken-text: #FFFFFF; --info-light-text: #000000; --info-lighten-text: #000000;  --display1-font: 'Source Serif 4', sans-serif; --display2-font: 'Source Serif 4', sans-serif; --display4-font: 'Source Serif 4', sans-serif; --display5-font: 'Source Serif 4', sans-serif; --display7-font: 'Source Serif 4', sans-serif;}</style>
 </head>
 <body>
+    <div id="top"></div>
 
 
 
@@ -709,11 +710,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-                    <li class="nav-item"><a class="nav-link link display-4" href="https://mobiri.se"  >Home</a></li>
-                    <li class="nav-item"><a class="nav-link link display-4" href="https://mobiri.se"  >About</a></li>
-                    <li class="nav-item"><a class="nav-link link display-4" href="https://mobiri.se"  >How It Works</a>
+                    <li class="nav-item"><a class="nav-link link display-4" href="#top"  >Home</a></li>
+                    <li class="nav-item"><a class="nav-link link display-4" href="#" onclick="return false;" >About</a></li>
+                    <li class="nav-item"><a class="nav-link link display-4" href="#" onclick="return false;" >How It Works</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link link display-4" href="https://mobiri.se"  >Contact</a>
+                    <li class="nav-item"><a class="nav-link link display-4" href="#contact"  >Contact</a>
                     </li>
                 </ul>
                 <div class="navbar-buttons mbr-section-btn">
@@ -7262,8 +7263,29 @@
       animationInput.setAttribute('type', 'hidden');
       document.body.append(animationInput);
       
-      // Change Send It button to Sent... when clicked
+      // Handle navigation links and button functionality
       document.addEventListener('DOMContentLoaded', function() {
+        // Handle navigation scrolling
+        const homeLink = document.querySelector('a[href="#top"]');
+        if (homeLink) {
+          homeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+        
+        const contactLink = document.querySelector('a[href="#contact"]');
+        if (contactLink) {
+          contactLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const contactSection = document.querySelector('#contact-form-1-v855FWgV09');
+            if (contactSection) {
+              contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          });
+        }
+        
+        // Change Send It button to Sent... when clicked
         const sendButtons = document.querySelectorAll('button[type="submit"]');
         sendButtons.forEach(function(button) {
           if (button.textContent.trim() === 'Send It!') {
