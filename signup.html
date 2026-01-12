@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - FeastForward</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #00161D, #003B4C);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .signup-container {
+            background: #002430;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signup-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(3, 64, 120, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .signup-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #034078;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(3, 64, 120, 0.5);
+        }
+        
+        .logo p {
+            color: #0AA3C2;
+            font-size: 1.1em;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0AA3C2;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: #003B4C;
+            border: 2px solid #034078;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0AA3C2;
+            box-shadow: 0 0 10px rgba(10, 163, 194, 0.3);
+        }
+        
+        .role-selection {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .role-option {
+            background: #003B4C;
+            border: 2px solid #034078;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .role-option:hover {
+            border-color: #0AA3C2;
+            transform: translateY(-5px);
+        }
+        
+        .role-option.selected {
+            border-color: #0AA3C2;
+            background: #005573;
+            box-shadow: 0 0 15px rgba(10, 163, 194, 0.4);
+        }
+        
+        .role-option h3 {
+            color: #034078;
+            margin-bottom: 10px;
+        }
+        
+        .role-option p {
+            color: #CFEDED;
+            font-size: 0.9em;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #034078, #005573);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #005573, #007492);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-back {
+            background: #313750;
+        }
+        
+        .btn-back:hover {
+            background: #272F57;
+        }
+        
+        .steps-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .step-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #003B4C;
+            color: #CFEDED;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            font-weight: bold;
+            border: 2px solid #034078;
+        }
+        
+        .step-indicator.active {
+            background: #034078;
+            color: white;
+            border-color: #0AA3C2;
+        }
+        
+        .step-indicator.completed {
+            background: #00A3C5;
+            color: white;
+        }
+        
+        .verification-code {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+        }
+        
+        .code-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            background: #003B4C;
+            border: 2px solid #034078;
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .resend-otp {
+            text-align: center;
+            margin-top: 15px;
+            color: #0AA3C2;
+            cursor: pointer;
+        }
+        
+        .resend-otp:hover {
+            text-decoration: underline;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #CFEDED;
+        }
+        
+        .login-link a {
+            color: #0AA3C2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            .signup-container {
+                padding: 25px;
+            }
+            
+            .role-selection {
+                grid-template-columns: 1fr;
+            }
+            
+            .verification-code {
+                gap: 10px;
+            }
+            
+            .code-input {
+                width: 40px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-content">
+            <div class="logo">
+                <h1>FeastForward</h1>
+                <p>Stop Food Waste, Feed People</p>
+            </div>
+            
+            <div class="steps-indicator">
+                <div class="step-indicator active" id="indicator-1">1</div>
+                <div class="step-indicator" id="indicator-2">2</div>
+                <div class="step-indicator" id="indicator-3">3</div>
+                <div class="step-indicator" id="indicator-4">4</div>
+            </div>
+            
+            <!-- Step 1: Role Selection -->
+            <div class="step active" id="step-1">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #0AA3C2;">Choose Your Role</h2>
+                <div class="role-selection">
+                    <div class="role-option" data-role="supplier">
+                        <h3>Supplier</h3>
+                        <p>Provide surplus food from your business</p>
+                    </div>
+                    <div class="role-option" data-role="restaurant">
+                        <h3>Restaurant</h3>
+                        <p>Donate excess prepared meals</p>
+                    </div>
+                    <div class="role-option" data-role="ngo-worker">
+                        <h3>NGO Worker</h3>
+                        <p>Collect and distribute donations</p>
+                    </div>
+                    <div class="role-option" data-role="volunteer">
+                        <h3>Volunteer</h3>
+                        <p>Help with pickup and delivery</p>
+                    </div>
+                </div>
+                <button class="btn" id="next-to-contact">Next: Contact Info</button>
+            </div>
+            
+            <!-- Step 2: Contact Information -->
+            <div class="step" id="step-2">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #0AA3C2;">Contact Information</h2>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Mobile Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name">
+                </div>
+                <button class="btn btn-back" id="back-to-role">Back</button>
+                <button class="btn" id="next-to-verify">Verify Mobile</button>
+            </div>
+            
+            <!-- Step 3: Mobile Verification -->
+            <div class="step" id="step-3">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #0AA3C2;">Verify Your Mobile</h2>
+                <p style="text-align: center; color: #CFEDED; margin-bottom: 30px;">Enter the 6-digit code sent to your mobile number</p>
+                
+                <div class="verification-code">
+                    <input type="text" class="code-input" maxlength="1" id="code-1">
+                    <input type="text" class="code-input" maxlength="1" id="code-2">
+                    <input type="text" class="code-input" maxlength="1" id="code-3">
+                    <input type="text" class="code-input" maxlength="1" id="code-4">
+                    <input type="text" class="code-input" maxlength="1" id="code-5">
+                    <input type="text" class="code-input" maxlength="1" id="code-6">
+                </div>
+                
+                <div class="resend-otp" id="resend-otp">Resend OTP</div>
+                
+                <button class="btn btn-back" id="back-to-contact">Back</button>
+                <button class="btn" id="verify-otp">Verify & Continue</button>
+            </div>
+            
+            <!-- Step 4: Account Setup -->
+            <div class="step" id="step-4">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #0AA3C2;">Set Password</h2>
+                <div class="form-group">
+                    <label for="password">Create Password</label>
+                    <input type="password" id="password" placeholder="Create a strong password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="Enter your city/area">
+                </div>
+                
+                <button class="btn btn-back" id="back-to-verify">Back</button>
+                <button class="btn" id="complete-signup">Complete Registration</button>
+            </div>
+            
+            <div class="login-link">
+                Already have an account? <a href="login.html">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State variables
+        let currentStep = 1;
+        let selectedRole = null;
+        
+        // DOM elements
+        const steps = {
+            1: document.getElementById('step-1'),
+            2: document.getElementById('step-2'),
+            3: document.getElementById('step-3'),
+            4: document.getElementById('step-4')
+        };
+        
+        const indicators = {
+            1: document.getElementById('indicator-1'),
+            2: document.getElementById('indicator-2'),
+            3: document.getElementById('indicator-3'),
+            4: document.getElementById('indicator-4')
+        };
+        
+        // Role selection
+        document.querySelectorAll('.role-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.role-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                selectedRole = this.dataset.role;
+            });
+        });
+        
+        // Navigation functions
+        function goToStep(stepNumber) {
+            // Hide all steps
+            Object.values(steps).forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show current step
+            steps[stepNumber].classList.add('active');
+            
+            // Update indicators
+            Object.entries(indicators).forEach(([num, indicator]) => {
+                indicator.classList.remove('active', 'completed');
+                if (parseInt(num) < stepNumber) {
+                    indicator.classList.add('completed');
+                } else if (parseInt(num) === stepNumber) {
+                    indicator.classList.add('active');
+                }
+            });
+            
+            currentStep = stepNumber;
+        }
+        
+        // Event listeners for navigation
+        document.getElementById('next-to-contact').addEventListener('click', function() {
+            if (!selectedRole) {
+                alert('Please select a role to continue');
+                return;
+            }
+            goToStep(2);
+        });
+        
+        document.getElementById('back-to-role').addEventListener('click', function() {
+            goToStep(1);
+        });
+        
+        document.getElementById('next-to-verify').addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const name = document.getElementById('name').value;
+            
+            if (!email || !phone || !name) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Simulate OTP sending
+            alert(`OTP sent to ${phone}. Please check your messages.`);
+            goToStep(3);
+        });
+        
+        document.getElementById('back-to-contact').addEventListener('click', function() {
+            goToStep(2);
+        });
+        
+        document.getElementById('verify-otp').addEventListener('click', function() {
+            const codeInputs = document.querySelectorAll('.code-input');
+            const otp = Array.from(codeInputs).map(input => input.value).join('');
+            
+            if (otp.length !== 6 || isNaN(otp)) {
+                alert('Please enter a valid 6-digit code');
+                return;
+            }
+            
+            goToStep(4);
+        });
+        
+        document.getElementById('back-to-verify').addEventListener('click', function() {
+            goToStep(3);
+        });
+        
+        document.getElementById('complete-signup').addEventListener('click', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const location = document.getElementById('location').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long');
+                return;
+            }
+            
+            if (!location) {
+                alert('Please enter your location');
+                return;
+            }
+            
+            // Simulate successful registration
+            alert(`Registration successful as ${selectedRole}! Welcome to FeastForward.`);
+            // In a real application, you would submit the form to a server here
+            window.location.href = 'login.html'; // Redirect to login page after signup
+        });
+        
+        // Resend OTP functionality
+        document.getElementById('resend-otp').addEventListener('click', function() {
+            alert('New OTP sent to your mobile number');
+        });
+        
+        // Auto-advance OTP inputs
+        document.querySelectorAll('.code-input').forEach((input, index, arr) => {
+            input.addEventListener('input', function() {
+                if (this.value.length === 1 && index < arr.length - 1) {
+                    arr[index + 1].focus();
+                }
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && this.value === '' && index > 0) {
+                    arr[index - 1].focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
