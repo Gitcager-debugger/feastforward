@@ -5053,7 +5053,7 @@
                             <div class="title-wrapper">
                                 <h2 class="mbr-section-title mbr-fonts-style display-2"  >See the Magic Happen</h2>
                                 <div class="mbr-section-btn">
-                                    <a class="btn btn-black display-4 visible" href="https://mobiri.se">Watch Now</a>
+                                    <a class="btn btn-black display-4 visible" href="#" onclick="playVideo(); return false;">Watch Now</a>
                                 </div>
                             </div>
                         </div>
@@ -7360,6 +7360,33 @@
           alert('Payment successful! Thank you for your purchase.');
           document.querySelector('[style*="rgba(0,0,0,0.8)"]').remove();
         }, 1500);
+      }
+      
+      // Function to play the video
+      function playVideo() {
+        const video = document.querySelector('.mbr-embedded-video');
+        if (video) {
+          // Update the video source to remove mute and controls parameters to play the video
+          let src = video.src;
+          if (src.includes('mute=1')) {
+            src = src.replace('mute=1', 'mute=0');
+            video.src = src;
+          }
+          
+          // Add play parameter
+          if (!src.includes('autoplay=1')) {
+            video.src = src + '&autoplay=1';
+          }
+          
+          // Show controls
+          if (src.includes('controls=0')) {
+            src = src.replace('controls=0', 'controls=1');
+            video.src = src;
+          }
+          
+          // Focus on the video to trigger play
+          video.focus();
+        }
       }
       
       // Handle navigation links and button functionality
