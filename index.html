@@ -7261,6 +7261,25 @@
       animationInput.setAttribute('name', 'animation');
       animationInput.setAttribute('type', 'hidden');
       document.body.append(animationInput);
+      
+      // Change Send It button to Sent... when clicked
+      document.addEventListener('DOMContentLoaded', function() {
+        const sendButtons = document.querySelectorAll('button[type="submit"]');
+        sendButtons.forEach(function(button) {
+          if (button.textContent.trim() === 'Send It!') {
+            button.addEventListener('click', function() {
+              this.textContent = 'Sent...';
+              this.disabled = true;
+              
+              // Reset after 2 seconds to allow resubmission if needed
+              setTimeout(() => {
+                this.textContent = 'Send It!';
+                this.disabled = false;
+              }, 2000);
+            });
+          }
+        });
+      });
     })();
 
   </script>
