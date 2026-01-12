@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Pay - Secure Payment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #202124;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: white;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .g-logo {
+            background: #4285F4;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: #5F6368;
+        }
+        
+        .container {
+            max-width: 456px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        
+        .merchant-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .merchant-logo {
+            width: 40px;
+            height: 40px;
+            background: #E3F2FD;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-weight: bold;
+            color: #1976D2;
+        }
+        
+        .merchant-details h2 {
+            font-size: 16px;
+            font-weight: 500;
+            color: #202124;
+        }
+        
+        .merchant-details p {
+            font-size: 14px;
+            color: #5F6368;
+        }
+        
+        .amount {
+            font-size: 32px;
+            font-weight: 400;
+            text-align: center;
+            margin: 16px 0;
+            color: #202124;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #dadce0;
+            margin: 16px 0;
+        }
+        
+        .payment-method {
+            margin-bottom: 24px;
+        }
+        
+        .method-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .method-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #202124;
+        }
+        
+        .add-card {
+            color: #1976D2;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .card-number {
+            font-size: 16px;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+        
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            color: #5F6368;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 12px;
+            color: #5F6368;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            background: #fff;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #1976D2;
+            box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            accent-color: #1976D2;
+        }
+        
+        .checkbox-label {
+            font-size: 14px;
+            color: #202124;
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .cancel-btn, .pay-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .cancel-btn {
+            background: #fff;
+            color: #1976D2;
+            border: 1px solid #dadce0;
+        }
+        
+        .pay-btn {
+            background: #1976D2;
+            color: white;
+            border: none;
+        }
+        
+        .pay-btn:hover {
+            background: #1565C0;
+        }
+        
+        .secure-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #5F6368;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <div class="g-logo">G</div>
+            <div class="logo-text">Google Pay</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="payment-card">
+            <div class="merchant-info">
+                <div class="merchant-logo">F</div>
+                <div class="merchant-details">
+                    <h2>FeastForward</h2>
+                    <p>Secure payment</p>
+                </div>
+            </div>
+            
+            <div class="amount" id="paymentAmount">$0.00</div>
+            
+            <div class="divider"></div>
+            
+            <div class="payment-method">
+                <div class="method-header">
+                    <div class="method-title">Payment method</div>
+                    <div class="add-card">Add new</div>
+                </div>
+                <div class="card-number">●●●● ●●●● ●●●● 1234</div>
+                <div class="card-details">
+                    <span>Visa ending in 1234</span>
+                    <span>Expires 12/25</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Card number</label>
+                <input type="text" class="form-input" placeholder="●●●● ●●●● ●●●● 1234" value="●●●● ●●●● ●●●● 1234">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">MM / YY</label>
+                <input type="text" class="form-input" placeholder="12 / 25" value="12 / 25">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">CVV</label>
+                <input type="text" class="form-input" placeholder="●●●" value="●●●">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Name on card</label>
+                <input type="text" class="form-input" placeholder="John Doe" value="John Doe">
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" class="checkbox" id="saveCard">
+                <label for="saveCard" class="checkbox-label">Save card securely for future payments</label>
+            </div>
+            
+            <div class="button-container">
+                <button class="cancel-btn">Cancel</button>
+                <button class="pay-btn">Pay Now</button>
+            </div>
+            
+            <div class="secure-note">
+                Your payment details are secured with bank-grade security
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Set the payment amount based on URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const planPrice = urlParams.get('price') || '$0.00';
+        document.getElementById('paymentAmount').textContent = planPrice;
+        
+        // Add event listeners
+        document.querySelector('.cancel-btn').addEventListener('click', function() {
+            window.close();
+            // If window.close doesn't work, redirect back to the main site
+            window.location.href = 'index.html';
+        });
+        
+        document.querySelector('.pay-btn').addEventListener('click', function() {
+            this.textContent = 'Processing...';
+            this.disabled = true;
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                alert('Payment successful! Thank you for your purchase.');
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
