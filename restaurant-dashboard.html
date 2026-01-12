@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Dashboard - FeastForward</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #034078, #005573);
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8em;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logout-btn {
+            background: #AE1E2C;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .logout-btn:hover {
+            background: #770003;
+        }
+        
+        .container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            padding: 12px 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sidebar li:hover, .sidebar li.active {
+            background: #e6f0fa;
+            border-left: 4px solid #034078;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .dashboard-header {
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h2 {
+            color: #034078;
+            font-size: 1.8em;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            color: #034078;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #034078;
+        }
+        
+        .donation-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #313750;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: #034078;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #002447;
+        }
+        
+        .donations-list {
+            margin-top: 40px;
+        }
+        
+        .donation-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+        
+        .donation-item h3 {
+            color: #034078;
+            margin-bottom: 10px;
+        }
+        
+        .donation-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>FeastForward</h1>
+        </div>
+        <div class="user-info">
+            <span>Welcome, Restaurant Owner!</span>
+            <button class="logout-btn" onclick="location.href='login.html'">Logout</button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li class="active">Dashboard</li>
+                <li>My Donations</li>
+                <li>Requests</li>
+                <li>Volunteers</li>
+                <li>History</li>
+                <li>Settings</li>
+            </ul>
+        </div>
+        
+        <div class="main-content">
+            <div class="dashboard-header">
+                <h2>Restaurant Dashboard</h2>
+                <p>Manage your food donations and connect with local NGOs</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Active Donations</h3>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Food Saved</h3>
+                    <div class="stat-value">120kg</div>
+                </div>
+                <div class="stat-card">
+                    <h3>People Fed</h3>
+                    <div class="stat-value">240</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Volunteers</h3>
+                    <div class="stat-value">8</div>
+                </div>
+            </div>
+            
+            <div class="donation-form">
+                <h3>Create New Donation</h3>
+                <form id="donationForm">
+                    <div class="form-group">
+                        <label for="foodType">Food Type</label>
+                        <select id="foodType">
+                            <option value="">Select food type</option>
+                            <option value="cooked">Cooked Meals</option>
+                            <option value="bakery">Bakery Items</option>
+                            <option value="produce">Fresh Produce</option>
+                            <option value="packaged">Packaged Foods</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity">Quantity (kg)</label>
+                        <input type="number" id="quantity" placeholder="Enter quantity">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="expiryDate">Best Before Date</label>
+                        <input type="date" id="expiryDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="3" placeholder="Describe the food items"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Submit Donation</button>
+                </form>
+            </div>
+            
+            <div class="donations-list">
+                <h3>Your Recent Donations</h3>
+                
+                <div class="donation-item">
+                    <h3>Cooked Rice & Curry</h3>
+                    <p><strong>Quantity:</strong> 15kg | <strong>Status:</strong> Claimed</p>
+                    <p><strong>Date Posted:</strong> Jan 10, 2026 | <strong>Claimed By:</strong> Local Shelter</p>
+                    <div class="donation-actions">
+                        <button class="btn">View Details</button>
+                        <button class="btn" style="background:#20AC6B;">Edit</button>
+                    </div>
+                </div>
+                
+                <div class="donation-item">
+                    <h3>Bakery Items</h3>
+                    <p><strong>Quantity:</strong> 8kg | <strong>Status:</strong> Available</p>
+                    <p><strong>Date Posted:</strong> Jan 11, 2026 | <strong>Expires:</strong> Jan 12, 2026</p>
+                    <div class="donation-actions">
+                        <button class="btn">View Details</button>
+                        <button class="btn" style="background:#AE1E2C;">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('donationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const foodType = document.getElementById('foodType').value;
+            const quantity = document.getElementById('quantity').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const description = document.getElementById('description').value;
+            
+            if(foodType && quantity && expiryDate && description) {
+                alert('Donation created successfully!');
+                this.reset();
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+    </script>
+</body>
+</html>
