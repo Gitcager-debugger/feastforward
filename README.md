@@ -1,4 +1,4 @@
-# FeastForward
+# Foodlink
 
 A food waste reduction platform that connects restaurants with surplus food to shelters and NGOs, fighting hunger one meal at a time.
 
